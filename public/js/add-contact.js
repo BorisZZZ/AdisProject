@@ -1,35 +1,59 @@
 // add-contact.js
 
-// Assuming you have already initialized Firebase (as shown in your firebase-init.js file)
-
-// Get a reference to the Firestore database
-const db = firebase.firestore();
-
 // Function to add a new contact with optional fields
 function addContact(fName, lName, phone, email, address, idNumber) {
-  // Validate that fName, lName, and phone are not null or empty
-  if (!fName || !lName || !phone) {
-    console.error("First name, last name, and phone cannot be null or empty.");
-    return;
+  // Simple validation for fName, lName, and phone
+  if (!fName.trim() || !lName.trim() || !phone.trim()) {
+    console.error("First name, last name, and phone are required fields and cannot be empty.");
+    // Handle the error appropriately
+    return; // Exit the function if validation fails
   }
-
-  // Add a new document to the "contacts" collection with phone as the document ID
-  db.collection("contacts")
-    .doc(phone)
-    .set({
-      fName: fName,
-      lName: lName,
-      email: email || null, // Set to null if not provided
-      address: address || null, // Set to null if not provided
-      idNumber: idNumber || null, // Set to null if not provided
-    })
-    .then(() => {
-      console.log("Contact added with phone number: ", phone);
-    })
-    .catch((error) => {
-      console.error("Error adding contact: ", error);
-    });
+  // Check if a contact with the same phone number already exists
+  const contactRef = db.collection('contacts').doc(phone);
+  
+  contactRef.get().then((doc) => {
+    if (doc.exists) {
+      // The contact already exists, handle the error
+      console.error("A contact with this phone number already exists.");
+      // Here you can handle the error, such as displaying a message to the user
+    } else {
+      // The contact does not exist, proceed with adding a new contact
+      contactRef.set({
+        firstName: fName.trim(),
+        lastName: lName.trim(),
+        phone: phone.trim(),
+        email: email ? email.trim() : null,
+        address: address ? address.trim() : null,
+        idNumber: idNumber ? idNumber.trim() : null
+      })
+      .then(() => {
+        console.log("Contact added successfully.");
+        // Further actions upon successful contact addition
+      })
+      .catch((error) => {
+        console.error("Error adding contact: ", error);
+        // Error handling
+      });
+    }
+  }).catch((error) => {
+    console.error("Error checking for contact existence: ", error);
+    // Error handling for the existence check
+  });
 }
+
+
+console.log("Registering addContactBtn event listener");
+document.getElementById('addContactBtn').addEventListener('click', function() {
+  var fName = document.getElementById('fName').value;
+  var lName = document.getElementById('lName').value;
+  var phone = document.getElementById('phone').value;
+  var email = document.getElementById('email').value;
+  var address = document.getElementById('address').value;
+  var idNumber = document.getElementById('idnumber').value;
+  
+  addContact(fName, lName, phone, email, address, idNumber);
+});
+console.log("addContactBtn event listener registered");
 
 // Example usage
 // You can call the addContact function with the desired parameters here
