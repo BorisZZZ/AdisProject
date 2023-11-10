@@ -8,12 +8,12 @@
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
     <script src="js/firebase-init.js"></script>
     <script type="text/javascript">
-      // firebase.auth().onAuthStateChanged((user) => {
-      //   if (!user) {
-      //     // User is not signed in, redirect to login page
-      //     window.location = "login.html";
-      //   }
-      // });
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          // User is not signed in, redirect to login page
+          window.location = "login.html";
+        }
+      });
     </script>
     <style>
       body {
