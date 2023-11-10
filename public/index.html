@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Management System</title>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
-<script src="firebase-init.js"></script>
-<script type="text/javascript">
-    firebase.auth().onAuthStateChanged(user => {
-        if (!user) {
-            // User is not signed in, redirect to login page
-            window.location = 'login.html';
-        }
-    });
-  </script>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .container {
-    width: 50%; /* Adjust the width as needed */
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Aligns the buttons on the cross axis (vertical) */
-  }
-  .button {
-    width: 80%; /* Make buttons wider */
-    padding: 20px; /* Increase padding for larger buttons */
-    margin: 20px 0; /* Add more space between buttons */
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.5em; /* Larger text inside buttons */
-    cursor: pointer; /* Change cursor to pointer on hover */
-  }
-  /* Additional style for the print button to reflect its isolated position in the sketch */
-  .print {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-</style>
-</head>
-<body>
-<!-- The surrounding HTML is left untouched by FirebaseUI.
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management System</title>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+    <script type="text/javascript">
+      // firebase.auth().onAuthStateChanged((user) => {
+      //   if (!user) {
+      //     // User is not signed in, redirect to login page
+      //     window.location = "login.html";
+      //   }
+      // });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        width: 50%; /* Adjust the width as needed */
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Aligns the buttons on the cross axis (vertical) */
+      }
+      .button {
+        width: 80%; /* Make buttons wider */
+        padding: 20px; /* Increase padding for larger buttons */
+        margin: 20px 0; /* Add more space between buttons */
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.5em; /* Larger text inside buttons */
+        cursor: pointer; /* Change cursor to pointer on hover */
+      }
+      /* Additional style for the print button to reflect its isolated position in the sketch */
+      .print {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
         Your app may use that space for branding, controls and other customizations.-->
-<div id="firebaseui-auth-container"></div>
-<div class="container">
-  <button class="button" onclick="location.href='register.html'">Add User</button>
-  <button class="button" id="findUserButton">Find User</button>
-  <button class="button print" id="printButton">Print</button>
-</div>
-</body>
+    <div id="firebaseui-auth-container"></div>
+    <div class="container">
+      <button class="button" onclick="location.href='add-contact.html'">
+        Add Contact
+      </button>
+      <button class="button" id="findUserButton">Find Contact</button>
+      <button class="button print" id="printButton">Print</button>
+    </div>
+  </body>
 </html>
