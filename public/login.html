@@ -1,18 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="he">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Sample FirebaseUI App</title>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
     <script src="js/firebase-init.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: #f8f9fa; /* Background color for the entire page */
+      }
+
+      .container {
+        max-width: 400px;
+        margin-top: 50px; /* Add some space from the top */
+      }
+
+      h1 {
+        direction: rtl;
+        margin-bottom: 20px;
+      }
+    </style>
+
     <script type="text/javascript">
       // FirebaseUI config.
       var uiConfig = {
-        signInSuccessUrl: 'index.html',
+        signInSuccessUrl: "index.html",
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -22,23 +51,23 @@
         // tosUrl and privacyPolicyUrl accept either url string or a callback
         // function.
         // Terms of service url/callback.
-        tosUrl: 'N/A',
+        tosUrl: "N/A",
         // Privacy policy url/callback.
-        privacyPolicyUrl: function() {
-          window.location.assign('N/A');
-        }
+        privacyPolicyUrl: function () {
+          window.location.assign("N/A");
+        },
       };
 
       // Initialize the FirebaseUI Widget using Firebase.
       var ui = new firebaseui.auth.AuthUI(firebase.auth());
       // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
+      ui.start("#firebaseui-auth-container", uiConfig);
     </script>
   </head>
   <body>
-    <!-- The surrounding HTML is left untouched by FirebaseUI.
-         Your app may use that space for branding, controls and other customizations.-->
-    <h1>Login</h1>
-    <div id="firebaseui-auth-container"></div>
+    <div class="container">
+      <h1 class="display-4">כניסה</h1>
+      <div id="firebaseui-auth-container"></div>
+    </div>
   </body>
 </html>

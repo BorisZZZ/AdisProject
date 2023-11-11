@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Contact List</title>
+    <style>
+      /* Add your additional CSS styles here */
+      .container {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body dir="rtl">
+    <div class="container">
+      <h2 class="mb-4">רשימת אנשי קשר</h2>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary" onclick="printContacts()">
+          הדפס
+        </button>
+
+        <!-- Add Back button -->
+        <button type="button" class="btn btn-secondary" onclick="goBack()">
+          חזור
+        </button>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן שם פרטי"
+                  id="filterFirstName"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן שם משפחה"
+                  id="filterLastName"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן טלפון"
+                  id="filterPhone"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן אימייל"
+                  id="filterEmail"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן כתובת"
+                  id="filterAddress"
+                />
+              </div>
+            </th>
+            <th scope="col">
+              <div class="mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="סנן תעודת זהות"
+                  id="filterIdNumber"
+                />
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th scope="col">שם פרטי</th>
+            <th scope="col">שם משפחה</th>
+            <th scope="col">מספר טלפון</th>
+            <th scope="col">אימייל</th>
+            <th scope="col">כתובת</th>
+            <th scope="col">תעודת זהות</th>
+          </tr>
+        </thead>
+        <tbody id="contactsTableBody">
+          <!-- Contacts will be added here dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/firebase-init.js"></script>
+    <script>
+      // Function to fetch all contacts and populate the table
+      function displayContacts() {
+        const contactsTableBody = document.getElementById("contactsTableBody");
+
+        db.collection("contacts")
+          .get()
+          .then((querySnapshot) => {
+            const contacts = [];
+            querySnapshot.forEach((doc) => {
+              contacts.push(doc.data());
+            });
+
+            // Get filter values from input fields
+            const firstNameFilter = document
+              .getElementById("filterFirstName")
+              .value.trim();
+            const lastNameFilter = document
+              .getElementById("filterLastName")
+              .value.trim();
+            const phoneFilter = document
+              .getElementById("filterPhone")
+              .value.trim();
+            const emailFilter = document
+              .getElementById("filterEmail")
+              .value.trim();
+            const addressFilter = document
+              .getElementById("filterAddress")
+              .value.trim();
+            const idNumberFilter = document
+              .getElementById("filterIdNumber")
+              .value.trim();
+
+            // Apply filters
+            const filteredContacts = contacts.filter((contact) => {
+              return (
+                contact.firstName.includes(firstNameFilter) &&
+                contact.lastName.includes(lastNameFilter) &&
+                contact.phone.includes(phoneFilter) &&
+                (contact.email || "").includes(emailFilter) &&
+                (contact.address || "").includes(addressFilter) &&
+                (contact.idNumber || "").includes(idNumberFilter)
+              );
+            });
+
+            // Populate the table with filtered contacts
+            contactsTableBody.innerHTML = "";
+            filteredContacts.forEach((contact) => {
+              const row = `<tr>
+                            <td>${contact.firstName}</td>
+                            <td>${contact.lastName}</td>
+                            <td>${contact.phone}</td>
+                            <td>${contact.email || ""}</td>
+                            <td>${contact.address || ""}</td>
+                            <td>${contact.idNumber || ""}</td>
+                        </tr>`;
+              contactsTableBody.innerHTML += row;
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching contacts: ", error);
+          });
+      }
+
+      // Call the function to display contacts when the page loads
+      displayContacts();
+
+      // Attach event listeners to input fields for dynamic filtering
+      document
+        .getElementById("filterFirstName")
+        .addEventListener("input", displayContacts);
+      document
+        .getElementById("filterLastName")
+        .addEventListener("input", displayContacts);
+      document
+        .getElementById("filterPhone")
+        .addEventListener("input", displayContacts);
+      document
+        .getElementById("filterEmail")
+        .addEventListener("input", displayContacts);
+      document
+        .getElementById("filterAddress")
+        .addEventListener("input", displayContacts);
+      document
+        .getElementById("filterIdNumber")
+        .addEventListener("input", displayContacts);
+
+      // Function to print the contacts table
+      function printContacts() {
+        window.print();
+      }
+
+      // Function to go back to index.html
+      function goBack() {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>
