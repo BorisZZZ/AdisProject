@@ -1,21 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Management System</title>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
     <script src="js/firebase-init.js"></script>
-    <script type="text/javascript">      
+    <script type="text/javascript">
       firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
           // User is not signed in, redirect to login page
           window.location = "login.html";
         }
       });
+
+      function logout() {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            // Sign-out successful, redirect to login page
+            window.location = "login.html";
+          })
+          .catch((error) => {
+            // An error happened, handle the error
+            console.error("Error during logout: ", error);
+          });
+      }
     </script>
     <style>
       body {
@@ -49,12 +62,8 @@
         font-size: 1.5em; /* Larger text inside buttons */
         cursor: pointer; /* Change cursor to pointer on hover */
       }
-      /* Additional style for the print button to reflect its isolated position in the sketch */
-      .print {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+      .logout-button {
+        background: #d9534f; /* Use Bootstrap's danger color for logout */
       }
     </style>
   </head>
@@ -64,10 +73,12 @@
     <div id="firebaseui-auth-container"></div>
     <div class="container">
       <button class="button" onclick="location.href='add-contact.html'">
-        Add Contact
+        הוספת איש קשר
       </button>
-      <button class="button" id="findUserButton">Find Contact</button>
-      <button class="button print" id="printButton">Print</button>
+      <button class="button" onclick="location.href='contacts-page.html'">
+        אנשי קשר
+      </button>
+      <button class="button logout-button" onclick="logout()">התנתקות</button>
     </div>
   </body>
 </html>

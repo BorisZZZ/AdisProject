@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
-
+    <script src="js/firebase-init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>User Registration</title>
 
     <!-- Add Bootstrap CSS -->
@@ -50,71 +50,88 @@
       input[type="submit"] {
         margin-top: 16px;
       }
+
+      #message {
+        margin-top: 16px;
+      }
     </style>
   </head>
 
   <body dir="rtl">
     <div class="container">
-      <h2 class="mb-4">הוספת משתמש</h2>
-        <div class="mb-2">
-          <label for="fName" class="form-label">שם פרטי</label>
-          <input
-            type="text"
-            class="form-control"
-            id="fName"
-            name="fName"
-            required
-          />
-        </div>
+      <h2 class="mb-4">הוספת איש קשר</h2>
+      <div class="mb-2">
+        <label for="fName" class="form-label">שם פרטי</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fName"
+          name="fName"
+          required
+        />
+      </div>
 
-        <div class="mb-1">
-          <label for="lName" class="form-label">שם משפחה</label>
-          <input
-            type="text"
-            class="form-control"
-            id="lName"
-            name="lName"
-            required
-          />
-        </div>
+      <div class="mb-1">
+        <label for="lName" class="form-label">שם משפחה</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lName"
+          name="lName"
+          required
+        />
+      </div>
 
-        <div class="mb-1">
-          <label for="phone" class="form-label">מספר טלפון</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="phone"
-            name="phone"
-            required
-          />
-        </div>
+      <div class="mb-1">
+        <label for="phone" class="form-label">מספר טלפון</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="phone"
+          name="phone"
+          required
+        />
+      </div>
 
-        <div class="mb-1">
-          <label for="email" class="form-label">אימייל</label>
-          <input type="email" class="form-control" id="email" name="email" />
-        </div>
+      <div class="mb-1">
+        <label for="email" class="form-label">אימייל</label>
+        <input type="email" class="form-control" id="email" name="email" />
+      </div>
 
-        <div class="mb-1">
-          <label for="address" class="form-label">כתובת מגורים</label>
-          <input type="text" class="form-control" id="address" name="address" />
-        </div>
+      <div class="mb-1">
+        <label for="address" class="form-label">כתובת מגורים</label>
+        <input type="text" class="form-control" id="address" name="address" />
+      </div>
 
-        <div class="mb-1">
-          <label for="idnumber" class="form-label">ת"ז</label>
-          <input
-            type="number"
-            class="form-control"
-            id="idnumber"
-            name="idnumber"
-          />
-        </div>
+      <div class="mb-1">
+        <label for="idnumber" class="form-label">ת"ז</label>
+        <input
+          type="number"
+          class="form-control"
+          id="idnumber"
+          name="idnumber"
+        />
+      </div>
+      <script>
+        function goBack() {
+          window.location.href = "index.html";
+        }
+      </script>
+      <button type="submit" class="btn btn-primary" id="addContactBtn">
+        הוסף
+      </button>
 
-        <button type="submit" class="btn btn-primary" id="addContactBtn">Submit</button>
+      <!-- Add Back button -->
+      <button type="button" class="btn btn-secondary" onclick="goBack()">
+        חזור
+      </button>
+
+      <!-- Display message -->
+      <div id="message"></div>
     </div>
 
     <!-- Add Bootstrap JS (Optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/firebase-init.js"></script>
-    <script src="js\add-contact.js"></script>
+    
   </body>
+  <script src="js\add-contact.js"></script>
 </html>
